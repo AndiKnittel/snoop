@@ -28,11 +28,11 @@ useEffect(() => {
 		console.error(err); 	
 	}) 
 },[]) 
-  
+
   return (
     <div className="App">
       <Search type={type} passType={passType} passCity={passCity}  />
-      <FilteredRestaurants />
+      {restaurants.length ? <FilteredRestaurants restaurants={restaurants} /> : null}
       <SelectedRestaurant />
     </div>
   );
