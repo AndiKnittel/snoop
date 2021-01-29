@@ -1,11 +1,13 @@
 import './styles.css';
-const RestaurantCard = () => {
-  return (
+
+const RestaurantCard = ({restaurantName, img}) => {
+    return ( 
     <div className="restaurantCard">
-      <img src="https://picsum.photos/300/200"></img>
-      <h4>This is RestaurantCard</h4>
+        <img src={img} alt={restaurantName} />
+        <h4>{restaurantName}</h4>
     </div>
   );
 };
+
 
 export default RestaurantCard;
