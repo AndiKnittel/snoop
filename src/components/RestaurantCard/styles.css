@@ -1,5 +1,17 @@
 .restaurantCard {
   margin-bottom: 10%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.imageContainer {
+  width: 200px;
+}
+
+.imageContainer img {
+  width: 100%;
 }
 
 h4 {
