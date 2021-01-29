@@ -4,20 +4,24 @@ import Search from './components/Search';
 import SelectedRestaurant from './components/SelectedRestaurant';
 import FilteredRestaurants from './components/FilteredRestaurants';
 import axios from 'axios';
-
- 
-
+  
 function App() {
 
 const [restaurants, setRestaurants] = useState([]);
 const [city, setCity] = useState('');
 const [type, setType] = useState('');
-
+ 
+const passType = (id, name) => {
+	console.log('Type-ID is: ', id, 'Type-Name is: ', name );
+}  
+const passCity = (id, name) => {
+	console.log('City-ID is: ', id, 'City-Name is: ', name );
+}   
  
 useEffect(() => {
 
 	axios.get('https://secret-cove-78238.herokuapp.com/restaurant')
-	.then((res) => {
+	.then((res) => { 
 		setRestaurants(res.data.data)
 	})
 	.catch((err) => {
@@ -25,10 +29,9 @@ useEffect(() => {
 	}) 
 },[]) 
 
-		
   return (
     <div className="App">
-      <Search />
+      <Search type={type} passType={passType} passCity={passCity}  />
       {restaurants.length ? <FilteredRestaurants restaurants={restaurants} /> : null}
       <SelectedRestaurant />
     </div>
