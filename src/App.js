@@ -18,7 +18,6 @@ useEffect(() => {
 
 	axios.get('https://secret-cove-78238.herokuapp.com/restaurant')
 	.then((res) => {
-		// console.log('res: ', res);
 		setRestaurants(res.data.data)
 	})
 	.catch((err) => {
@@ -26,12 +25,11 @@ useEffect(() => {
 	}) 
 },[]) 
 
-  console.log('restaurants: ', restaurants);
 		
   return (
     <div className="App">
       <Search />
-      <FilteredRestaurants />
+      {restaurants.length ? <FilteredRestaurants restaurants={restaurants} /> : null}
       <SelectedRestaurant />
     </div>
   );

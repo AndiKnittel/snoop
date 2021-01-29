@@ -1,9 +1,16 @@
 import RestaurantCard from '../RestaurantCard';
 import './styles.css';
-const FilteredRestaurants = () => {
+const FilteredRestaurants = ({restaurants}) => {
     return <div className="cardContainer">
-        This is FilteredRestaurants
-        <RestaurantCard />
+        {
+            restaurants.map((restaurant, index) => (
+                <RestaurantCard 
+                    restaurantName={restaurant.name}
+                    img={restaurant.img[0]}
+                    key={index}
+                />
+            ))
+        }    
     </div>
 }
 
