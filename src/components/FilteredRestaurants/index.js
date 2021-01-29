@@ -1,5 +1,6 @@
 import RestaurantCard from '../RestaurantCard';
 import './styles.css';
+
 const FilteredRestaurants = ({restaurants}) => {
     return <div className="cardContainer">
         {
@@ -12,6 +13,7 @@ const FilteredRestaurants = ({restaurants}) => {
             ))
         }    
     </div>
-}
+  );
+};
 
 export default FilteredRestaurants;

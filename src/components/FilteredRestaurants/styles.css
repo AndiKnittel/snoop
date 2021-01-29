@@ -1,0 +1,6 @@
+.cardContainer {
+  flex-grow: 2;
+  overflow-y: auto !important;
+  height: 75vh;
+  text-align: center;
+}

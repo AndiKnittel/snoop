@@ -31,9 +31,12 @@ useEffect(() => {
 
   return (
     <div className="App">
+      <header>Snoop Noop</header>
       <Search type={type} passType={passType} passCity={passCity}  />
-      {restaurants.length ? <FilteredRestaurants restaurants={restaurants} /> : null}
-      <SelectedRestaurant />
+      <div className="mainContainer">
+        {restaurants.length ? <FilteredRestaurants restaurants={restaurants} /> : null}
+        <SelectedRestaurant />
+      </div>
     </div>
   );
 }
