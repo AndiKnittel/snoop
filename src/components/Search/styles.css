@@ -1,111 +1,104 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700,900');
 /* ========================================================================== Dropdown menu ========================================================================== */
 
-
-.search { 
-    height: 20vh;
-    background-color: grey; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.search {
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
- 
-@media only screen and (max-width: 768px) {    
-		.search {  
-		    flex-direction: column; 
-		} 
-} 
 
+@media only screen and (max-width: 768px) {
+  .search {
+    flex-direction: column;
+  }
+}
 
-.dd-list {  
-    position: absolute;
-    width: 27vw !important; 
+.dd-list {
+  position: absolute;
+  width: 27vw !important;
 }
 
 .dd-wrapper {
-	max-width: 276px;
-	min-width: 276px; 
-    padding: 1em; 
-    top: -5px;
-    background-color: unset;
-    left: 43%;
-    z-index: 10; 
+  max-width: 276px;
+  min-width: 276px;
+  padding: 1em;
+  top: -5px;
+  background-color: unset;
+  left: 43%;
+  z-index: 10;
 }
 
-
-.dd-wrapper .dd-list li button span:nth-of-type(2)  {
-	display: none;
-
+.dd-wrapper .dd-list li button span:nth-of-type(2) {
+  display: none;
 }
-
-
 
 /* DEFAULT LAYOUT */
 /* RESETS ============================================ */
- 
- .container {
-	 max-width: 1140px;
-	 width: 100%;
-	 margin: auto;
+
+.container {
+  max-width: 1140px;
+  width: 100%;
+  margin: auto;
 }
 /* DROPDOWN ============================================ */
- .dd-wrapper {
-	 display: flex;
-	 min-height: 38px;
-	 flex-wrap: wrap;
+.dd-wrapper {
+  display: flex;
+  min-height: 38px;
+  flex-wrap: wrap;
 }
- .dd-wrapper .dd-header {
-	 background-color: white;
-	 border-color: #ccc;
-	 border-radius: 4px;
-	 border-style: solid;
-	 border-width: 1px;
-	 box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, .075) !important;
-	 display: flex;
-	 justify-content: space-between;
-	 cursor: pointer;
-	 width: 100%;
-	 padding: 0 20px;
+.dd-wrapper .dd-header {
+  background-color: white;
+  border-color: #ccc;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 100%;
+  padding: 0 20px;
 }
- .dd-wrapper .dd-header__title--bold {
-	 font-weight: bold;
+.dd-wrapper .dd-header__title--bold {
+  font-weight: bold;
 }
- .dd-wrapper .dd-list {
-	 box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, .075) !important;
-	 padding: 0;
-	 margin: 0;
-	 width: 100%;
-	 margin-top: 20px;
+.dd-wrapper .dd-list {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  margin-top: 20px;
 }
- .dd-wrapper .dd-list li {
-	 list-style-type: none;
+.dd-wrapper .dd-list li {
+  list-style-type: none;
 }
- .dd-wrapper .dd-list li:first-of-type > button {
-	 border-top: 1px solid #ccc;
-	 border-top-left-radius: 4px;
-	 border-top-right-radius: 4px;
+.dd-wrapper .dd-list li:first-of-type > button {
+  border-top: 1px solid #ccc;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
- .dd-wrapper .dd-list li:last-of-type > button {
-	 border-bottom-left-radius: 4px;
-	 border-bottom-right-radius: 4px;
+.dd-wrapper .dd-list li:last-of-type > button {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
- .dd-wrapper .dd-list li button {
-	 display: flex;
-	 justify-content: space-between;
-	 background-color: white;
-	 font-size: 16px;
-	 padding: 15px 20px 15px 20px;
-	 border: 0;
-	 border-bottom: 1px solid #ccc;
-	 width: 100%;
-	 text-align: left;
-	 border-left: 1px solid #ccc;
-	 border-right: 1px solid #ccc; 
-} 
+.dd-wrapper .dd-list li button {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  font-size: 16px;
+  padding: 15px 20px 15px 20px;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  text-align: left;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
 
- .dd-wrapper .dd-list li button:hover, .dd-wrapper .dd-list li button:focus {
-	 cursor: pointer;
-	 font-weight: bold;
-	 background-color: #ccc;
+.dd-wrapper .dd-list li button:hover,
+.dd-wrapper .dd-list li button:focus {
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #ccc;
 }
- 
