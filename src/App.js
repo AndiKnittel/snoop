@@ -6,9 +6,12 @@ import FilteredRestaurants from './components/FilteredRestaurants';
 function App() {
   return (
     <div className="App">
+      <header>Snoop Noop</header>
       <Search />
-      <FilteredRestaurants />
-      <SelectedRestaurant />
+      <div className="mainContainer">
+        <FilteredRestaurants />
+        <SelectedRestaurant />
+      </div>
     </div>
   );
 }
