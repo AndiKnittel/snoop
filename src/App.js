@@ -8,15 +8,23 @@ import axios from 'axios';
 function App() {
 
 const [restaurants, setRestaurants] = useState([]);
-const [city, setCity] = useState('');
-const [type, setType] = useState('');
- 
-const passType = (id, name) => {
-	console.log('Type-ID is: ', id, 'Type-Name is: ', name );
-}  
-const passCity = (id, name) => {
-	console.log('City-ID is: ', id, 'City-Name is: ', name );
-}   
+const [searchKeywords, setSearchKeywords] = useState({});
+
+const resetSearch = (cityId, typeId) => {
+  const keywords = {
+    cityId: cityId,
+    typeId: typeId
+  }
+  setSearchKeywords(keywords);
+}
+
+useEffect(() => {
+  axios.get(`https://secret-cove-78238.herokuapp.com/restaurant/${searchKeywords.cityId}/${searchKeywords.typeId} `)
+  .then(res => {
+    setRestaurants(res.data.data)
+  })
+  .catch(err => console.error(err))
+}, [searchKeywords])
  
 useEffect(() => {
 
@@ -32,7 +40,7 @@ useEffect(() => {
   return (
     <div className="App">
       <header>Snoop Noop</header>
-      <Search type={type} passType={passType} passCity={passCity}  />
+      <Search resetSearch={resetSearch}  />
       <div className="mainContainer">
         {restaurants.length ? <FilteredRestaurants restaurants={restaurants} /> : null}
         <SelectedRestaurant />

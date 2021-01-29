@@ -3,7 +3,7 @@ import './styles.css';
 import axios from 'axios';
  
 
-const Search = ({  passType, passCity }) => { 
+const Search = ({ resetSearch }) => { 
 
     const [openType, setOpenType] = useState(false);
     const [openCity, setOpenCity] = useState(false);
@@ -11,16 +11,20 @@ const Search = ({  passType, passCity }) => {
     const toggleCity = () => setOpenCity(!openCity); 
     const toggleType = () => setOpenType(!openType);
 
-    const [type, setType] = useState([]); 
-    const [city, setCity] = useState([]); 
+    const [types, setTypes] = useState([]); 
+	const [cities, setCities] = useState([]); 
+	
+	//state variables for city and type
   
+	const [cityId, setCityId] = useState('');
+	const [typeId, setTypeId] = useState('');
+
 
     // TYPE API REQUEST  
 	useEffect(() => {
-
 		axios.get('https://secret-cove-78238.herokuapp.com/tag/')
-		.then((tags) => {  
-			 setType(tags.data.data)
+		.then((res) => {  
+			 setTypes(res.data.data)
 		})
 		.catch((err) => {
 			console.error(err); 	
@@ -31,10 +35,9 @@ const Search = ({  passType, passCity }) => {
 
     // CITY API REQUEST 
 	useEffect(() => {
-
 		axios.get('https://secret-cove-78238.herokuapp.com/city/')
-		.then((city) => {  
-			 setCity(city.data.data)
+		.then((res) => {  
+			 setCities(res.data.data)
 		})
 		.catch((err) => {
 			console.error(err); 	
@@ -62,11 +65,11 @@ const Search = ({  passType, passCity }) => {
  
 				      {openType && (
 				        <ul className="dd-list">   
-				              {type.map((item, index) => {  
+				              {types.map((type, index) => {  
 				                return (  
-				                <li className="dd-list-item" key={index} onClick={() => {passType(item._id, item.name); }}>
+				                <li className="dd-list-item" key={index} onClick={() => {setTypeId(type._id); }}>
 				                  <button type="button" onClick={() => {toggleType(); }} >
-				                    <span>{item.name}</span> 
+				                    <span>{type.name}</span> 
 				                  </button>
 				                </li>
 				             )} )}  
@@ -94,17 +97,18 @@ const Search = ({  passType, passCity }) => {
  
 				      {openCity && (
 				        <ul className="dd-list">   
-				              {city.map((item, index) => {  
+				              {cities.map((city, index) => {  
 				                return (  
-				                <li className="dd-list-item" key={index} onClick={() => {passCity(item._id, item.name); }}>
+				                <li className="dd-list-item" key={index} onClick={() => {setCityId(city._id) }}>
 				                  <button type="button" onClick={() => {toggleCity(); }} >
-				                    <span>{item.name}</span> 
+				                    <span>{city.name}</span> 
 				                  </button>
 				                </li>
 				             )} )}  
 				        </ul>
 				      )}
-				    </div>   
+				    </div>
+				<button onClick={() => resetSearch(cityId, typeId)}>Search</button>   
 	    	</div>
     	)
 } 
