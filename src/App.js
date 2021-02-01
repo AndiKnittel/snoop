@@ -1,54 +1,81 @@
 import './App.css';
-import {useEffect, useState} from 'react';  
+import { useEffect, useState } from 'react';
 import Search from './components/Search';
-import SelectedRestaurant from './components/SelectedRestaurant';
 import FilteredRestaurants from './components/FilteredRestaurants';
 import axios from 'axios';
-  
+
 function App() {
+  const [restaurants, setRestaurants] = useState([]);
+  const [userInfo, setUserInfo] = useState('');
 
-const [restaurants, setRestaurants] = useState([]);
-const [searchKeywords, setSearchKeywords] = useState({});
+  let checkStatus = (
+    cityIdValue,
+    cityNameValue,
+    typeIdValue,
+    typeNameValue
+  ) => {
+    // CHECK IF  BOTH VALUES ARE AVAILABLE
+    if (typeIdValue && cityIdValue) {
+      setUserInfo(
+        `Okay happy eating in ${cityNameValue} with ${typeNameValue} Food! `
+      );
+    }
+    // CHECK IF  AT LEAST ONE VALUE IS AVAILABLE
+    if (!cityIdValue || !typeIdValue) {
+      setUserInfo(`Okay cool,
+                          ${typeNameValue !== 'Type' ? typeNameValue : ''}
+                          ${cityNameValue !== 'City' ? cityNameValue : ''}
+                          ! Now Choose your ${
+                            cityNameValue !== 'City' ? 'Type' : 'City'
+                          }
+                          ! `);
+      // we must SET both Values to Empty here, because the API-request requires EITHER both values OR NONE
+      cityIdValue = '';
+      typeIdValue = '';
+    }
 
-const resetSearch = (cityId, typeId) => {
-  const keywords = {
-    cityId: cityId,
-    typeId: typeId
-  }
-  setSearchKeywords(keywords);
-}
+    return [cityIdValue + '/', typeIdValue];
+  };
 
-useEffect(() => {
-  axios.get(`https://secret-cove-78238.herokuapp.com/restaurant/${searchKeywords.cityId}/${searchKeywords.typeId} `)
-  .then(res => {
-    setRestaurants(res.data.data)
-  })
-  .catch(err => console.error(err))
-}, [searchKeywords])
- 
-useEffect(() => {
+  //  all 4 Values are comming from the Search Component
+  const startSearch = (
+    cityIdValue,
+    cityNameValue,
+    typeIdValue,
+    typeNameValue
+  ) => {
+    triggerAPI(
+      checkStatus(cityIdValue, cityNameValue, typeIdValue, typeNameValue)
+    );
+  };
 
-	axios.get('https://secret-cove-78238.herokuapp.com/restaurant')
-	.then((res) => { 
-		setRestaurants(res.data.data)
-	})
-	.catch((err) => {
-		console.error(err); 	
-	}) 
-},[]) 
+  useEffect(() => {
+    //
+    startSearch('', '', '', '');
+    setUserInfo('Select City and Location above');
+  }, []);
+
+  const triggerAPI = async ([cityInfo, typeInfo]) => {
+    await axios
+      .get(
+        `https://${process.env.REACT_APP_API}/restaurant/${cityInfo}${typeInfo}`
+      )
+      .then(res => {
+        setRestaurants(res.data.data);
+      })
+      .catch(err => console.error(err));
+  };
 
   return (
     <div className="App">
       <header>Snoop Noop</header>
-      <Search resetSearch={resetSearch}  />
+      <Search resetSearch={startSearch} />
       <div className="mainContainer">
-        {restaurants.length ? <FilteredRestaurants restaurants={restaurants} /> : null}
-        <SelectedRestaurant />
+        {restaurants.length ? (
+          <FilteredRestaurants userInfo={userInfo} restaurants={restaurants} />
+        ) : null}
       </div>
     </div>
   );
 }
-
 export default App;
-
- 
