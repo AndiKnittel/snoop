@@ -2,24 +2,25 @@ import { useState } from 'react';
 import './styles.css';
 
 const SelectedRestaurant = ({ data, userInfo, restaurantChoice }) => {
+  // console.log('restaurantChoice: ', restaurantChoice);
   return (
     <div className="selectedRestaurant">
       <div className="userInfo">{userInfo}</div>
-      {restaurantChoice.length ? (
+      {restaurantChoice ? (
         <>
           <br />
-          <h3>Name: {restaurantChoice[0].name}</h3>
+          <h3>Name: {restaurantChoice.name}</h3>
           <ul>
-            {restaurantChoice[0].tags.map((tag, index) => {
+            {restaurantChoice.tags.map((tag, index) => {
               return <li key={index}>Taste: {tag.name}</li>;
             })}
           </ul>
-          <p>About: {restaurantChoice[0].description}</p>
+          <p>About: {restaurantChoice.description}</p>
           <div className="address">
-            <h6>Address: {restaurantChoice[0].address}</h6>
-            <h6>City: {restaurantChoice[0].city.name}</h6>
+            <h6>Address: {restaurantChoice.address}</h6>
+            <h6>City: {restaurantChoice.city.name}</h6>
 
-            <img src={restaurantChoice[0].img[1]} />
+            <img src={restaurantChoice.img[1]} />
           </div>
         </>
       ) : null}

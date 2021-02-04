@@ -13,14 +13,14 @@ const Search = ({ resetSearch }) => {
 	const [cities, setCities] = useState([]);
 
 	//state variables for the IDs of  cityId and typeId
-	console.log(
-		'Second Question: Would just a regular Variable be consistent enough here? Or is a StateVariable required? '
-	);
+
 	const [typeId, setTypeId] = useState('');
 	const [cityId, setCityId] = useState('');
 	//state variables for Names of cityName and typeName
 	const [typeName, setTypeName] = useState('Type');
 	const [cityName, setCityName] = useState('City');
+
+	const [userChoice, setUserChoice] = useState([]);
 
 	// API REQUEST for TYPE
 	useEffect(() => {
@@ -32,10 +32,8 @@ const Search = ({ resetSearch }) => {
 			.catch(err => {
 				console.error(err);
 			});
-	}, []);
 
-	// API REQUEST for CITY
-	useEffect(() => {
+		// API REQUEST for CITY
 		axios
 			.get('https://secret-cove-78238.herokuapp.com/city/')
 			.then(res => {
@@ -44,6 +42,40 @@ const Search = ({ resetSearch }) => {
 			.catch(err => {
 				console.error(err);
 			});
+
+		class userInteraction {
+			constructor(tname = 'Type', tid = 'tid', cname = 'City', cid = 'cid') {
+				this._tname = tname;
+				this._tid = tid;
+				this._cname = cname;
+				this._cid = cid;
+			}
+
+			set setCityName(cname) {
+				this._cname = cname;
+			}
+			set setCityId(cid) {
+				this._cid = cid;
+			}
+			set setTypeName(tname) {
+				this._tname = tname;
+			}
+			set setTypeId(tid) {
+				this._tid = tid;
+			}
+
+			get getCity() {
+				return this._cid + ' ' + this._cname;
+			}
+			get getType() {
+				return this._tid + ' ' + this._tname;
+			}
+		}
+
+		// const test1 = new userInteraction();
+		// console.log('test1  ', test1);
+		// test1.setCityName = 'Bremen';
+		// console.log('test1 after changed value  ', test1);
 	}, []);
 
 	return (

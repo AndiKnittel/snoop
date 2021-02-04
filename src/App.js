@@ -22,13 +22,11 @@ function App() {
     }
     // CHECK IF  AT LEAST ONE VALUE IS AVAILABLE
     if (!cityIdValue || !typeIdValue) {
-      setUserInfo(`Okay cool,
-                          ${typeNameValue !== 'Type' ? typeNameValue : ''}
-                          ${cityNameValue !== 'City' ? cityNameValue : ''}
-                          ! Now Choose your ${
-                            cityNameValue !== 'City' ? 'Type' : 'City'
-                          }
-                          ! `);
+      const type = typeNameValue !== 'Type' ? typeNameValue : '';
+      const city = cityNameValue !== 'City' ? cityNameValue : '';
+      const typeOrCity = cityNameValue !== 'City' ? 'Type' : 'City';
+      setUserInfo(`Okay cool, ${type} ${city}! Now Choose your ${typeOrCity}!`);
+
       // we must SET both Values to Empty here, because the API-request requires EITHER both values OR NONE
       cityIdValue = '';
       typeIdValue = '';

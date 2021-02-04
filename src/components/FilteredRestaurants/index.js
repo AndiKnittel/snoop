@@ -5,21 +5,14 @@ import RestaurantCard from '../RestaurantCard';
 import './styles.css';
 
 const FilteredRestaurants = ({ restaurants, userInfo }) => {
-  const [restaurantChoice, SetRestaurantChoice] = useState([]);
+  const [restaurantChoice, SetRestaurantChoice] = useState();
 
   return (
     <>
       <div className="cardContainer">
         {restaurants.map((restaurant, index) => {
-          console.log(
-            'First Question: LENGTH.method  \
-            inside of the Selected-Restaurant \
-            Question context will begin here in FilteredRestaurants \
-            see: line 22  : ',
-            [restaurant]
-          );
           return (
-            <div key={index} onClick={() => SetRestaurantChoice([restaurant])}>
+            <div key={index} onClick={() => SetRestaurantChoice(restaurant)}>
               <Link to={`/restaurant/${restaurant.name}`}>
                 <RestaurantCard
                   restaurantName={restaurant.name}
