@@ -8,50 +8,36 @@ function App() {
   const [restaurants, setRestaurants] = useState([]);
   const [userInfo, setUserInfo] = useState('');
 
-  let checkStatus = (
-    cityIdValue,
-    cityNameValue,
-    typeIdValue,
-    typeNameValue
-  ) => {
+  useEffect(() => {
+     Valcheck_APItrigger( {city: ' ', cid: '', type:' ', tid:'' });
+     setUserInfo('Select City and Location above');
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
+  // Valcheck_APItrigger will test if both Values are available for the API
+  // AND update some additional User-Information
+  let Valcheck_APItrigger = (object) => {
+    const {cid, city, tid, type} = object;
+
     // CHECK IF  BOTH VALUES ARE AVAILABLE
-    if (typeIdValue && cityIdValue) {
+    if (tid && cid) {
       setUserInfo(
-        `Okay happy eating in ${cityNameValue} with ${typeNameValue} Food! `
+        `Okay happy eating in ${city} with ${type} Food! `
       );
+      const cidResult = cid + '/'; // values must be separated bz a slash
+      triggerAPI([cidResult, tid]); // console.log('we will SET both Values (we must do  it for the API to work, and we can!')
+      // console.log('cidResult, tid ', cidResult, tid  )
     }
     // CHECK IF  AT LEAST ONE VALUE IS AVAILABLE
-    if (!cityIdValue || !typeIdValue) {
-      const type = typeNameValue !== 'Type' ? typeNameValue : '';
-      const city = cityNameValue !== 'City' ? cityNameValue : '';
-      const typeOrCity = cityNameValue !== 'City' ? 'Type' : 'City';
-      setUserInfo(`Okay cool, ${type} ${city}! Now Choose your ${typeOrCity}!`);
-
-      // we must SET both Values to Empty here, because the API-request requires EITHER both values OR NONE
-      cityIdValue = '';
-      typeIdValue = '';
+    if (!cid || !tid) {
+      const typeResult = type !== 'Type' ? type : '';
+      const cityResult = city !== 'City' ? city : '';
+      const typeOrCityResult = city !== 'City' ? 'Type' : 'City';
+      setUserInfo(`Okay cool, ${typeResult} ${cityResult}! Now Choose your ${typeOrCityResult}!`);
+      triggerAPI(['', '']); //console.log( 'we trigger API with no values. We must SET both Values to Empty here, because the API-request requires EITHER both values OR NONE')
     }
-
-    return [cityIdValue + '/', typeIdValue];
   };
-
-  //  all 4 Values are comming from the Search Component
-  const startSearch = (
-    cityIdValue,
-    cityNameValue,
-    typeIdValue,
-    typeNameValue
-  ) => {
-    triggerAPI(
-      checkStatus(cityIdValue, cityNameValue, typeIdValue, typeNameValue)
-    );
-  };
-
-  useEffect(() => {
-    //
-    startSearch('', '', '', '');
-    setUserInfo('Select City and Location above');
-  }, []);
 
   const triggerAPI = async ([cityInfo, typeInfo]) => {
     await axios
@@ -67,7 +53,7 @@ function App() {
   return (
     <div className="App">
       <header>Snoop Noop</header>
-      <Search resetSearch={startSearch} />
+      <Search passUserAPItrigger={Valcheck_APItrigger} />
       <div className="mainContainer">
         {restaurants.length ? (
           <FilteredRestaurants userInfo={userInfo} restaurants={restaurants} />

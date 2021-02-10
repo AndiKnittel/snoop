@@ -2,25 +2,25 @@ import { useEffect, useState } from 'react';
 import './styles.css';
 import axios from 'axios';
 
-const Search = ({ resetSearch }) => {
+const Search = ({ passUserAPItrigger}) => {
 	const [openType, setOpenType] = useState(false);
 	const [openCity, setOpenCity] = useState(false);
 	const toggleCityDropDown = () => setOpenCity(!openCity);
 	const toggleTypeDropDown = () => setOpenType(!openType);
 
-	// Array of City and Type
+	// City-Dropdown and Type-Dropdown
 	const [types, setTypes] = useState([]);
 	const [cities, setCities] = useState([]);
 
-	//state variables for the IDs of  cityId and typeId
+	// Object for API Call and Additional-User-Info
+	const [userChoice, setuserChoice] = useState( {city: ' ', cid: '', type:' ', tid:'' }); // https://www.youtube.com/watch?v=-3lL8oyev9w
 
-	const [typeId, setTypeId] = useState('');
-	const [cityId, setCityId] = useState('');
-	//state variables for Names of cityName and typeName
-	const [typeName, setTypeName] = useState('Type');
-	const [cityName, setCityName] = useState('City');
+	// Refresh API Call and display Additional-User-Info
+	useEffect(() => {
+ 	    passUserAPItrigger(userChoice);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [userChoice]);
 
-	const [userChoice, setUserChoice] = useState([]);
 
 	// API REQUEST for TYPE
 	useEffect(() => {
@@ -42,40 +42,6 @@ const Search = ({ resetSearch }) => {
 			.catch(err => {
 				console.error(err);
 			});
-
-		class userInteraction {
-			constructor(tname = 'Type', tid = 'tid', cname = 'City', cid = 'cid') {
-				this._tname = tname;
-				this._tid = tid;
-				this._cname = cname;
-				this._cid = cid;
-			}
-
-			set setCityName(cname) {
-				this._cname = cname;
-			}
-			set setCityId(cid) {
-				this._cid = cid;
-			}
-			set setTypeName(tname) {
-				this._tname = tname;
-			}
-			set setTypeId(tid) {
-				this._tid = tid;
-			}
-
-			get getCity() {
-				return this._cid + ' ' + this._cname;
-			}
-			get getType() {
-				return this._tid + ' ' + this._tname;
-			}
-		}
-
-		// const test1 = new userInteraction();
-		// console.log('test1  ', test1);
-		// test1.setCityName = 'Bremen';
-		// console.log('test1 after changed value  ', test1);
 	}, []);
 
 	return (
@@ -89,7 +55,7 @@ const Search = ({ resetSearch }) => {
 					onClick={() => toggleCityDropDown()}
 				>
 					<div className="dd-header__title">
-						<p className="dd-header__title--bold">Search for {cityName}</p>
+						<p className="dd-header__title--bold">Search for cityName{}</p>
 					</div>
 					<div className="dd-header__action">
 						<p>{openCity ? 'Close' : 'Open'}</p>
@@ -104,9 +70,7 @@ const Search = ({ resetSearch }) => {
 									className="dd-list-item"
 									key={index}
 									onClick={() => {
-										setCityId(city._id);
-										setCityName(city.name);
-										resetSearch(city._id, city.name, typeId, typeName);
+										setuserChoice({ ...userChoice, city: city.name,  cid: city._id});
 									}}
 								>
 									<button
@@ -133,7 +97,7 @@ const Search = ({ resetSearch }) => {
 					onClick={() => toggleTypeDropDown()}
 				>
 					<div className="dd-header__title">
-						<p className="dd-header__title--bold">Search for {typeName}</p>
+						<p className="dd-header__title--bold">Search for typeName{}</p>
 					</div>
 					<div className="dd-header__action">
 						<p>{openType ? 'Close' : 'Open'}</p>
@@ -148,9 +112,7 @@ const Search = ({ resetSearch }) => {
 									className="dd-list-item"
 									key={index}
 									onClick={() => {
-										setTypeId(type._id);
-										setTypeName(type.name);
-										resetSearch(cityId, cityName, type._id, type.name);
+										setuserChoice({ ...userChoice, type: type.name, tid: type._id});
 									}}
 								>
 									<button

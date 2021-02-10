@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import './styles.css';
 
 const SelectedRestaurant = ({ data, userInfo, restaurantChoice }) => {
-  // console.log('restaurantChoice: ', restaurantChoice);
   return (
     <div className="selectedRestaurant">
       <div className="userInfo">{userInfo}</div>
@@ -20,7 +18,7 @@ const SelectedRestaurant = ({ data, userInfo, restaurantChoice }) => {
             <h6>Address: {restaurantChoice.address}</h6>
             <h6>City: {restaurantChoice.city.name}</h6>
 
-            <img src={restaurantChoice.img[1]} />
+            <img  alt='restaurantDetails' src={restaurantChoice.img[1]} />
           </div>
         </>
       ) : null}
