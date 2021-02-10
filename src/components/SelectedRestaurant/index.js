@@ -1,23 +1,27 @@
 import './styles.css';
-const SelectedRestaurant = ({
-  img,
-  name,
-  address,
-  city,
-  description,
-  tags,
-}) => {
+
+const SelectedRestaurant = ({ data, userInfo, restaurantChoice }) => {
   return (
     <div className="selectedRestaurant">
-      <img src="https://picsum.photos/1500/1000"></img>
+      <div className="userInfo">{userInfo}</div>
+      {restaurantChoice ? (
+        <>
+          <br />
+          <h3>Name: {restaurantChoice.name}</h3>
+          <ul>
+            {restaurantChoice.tags.map((tag, index) => {
+              return <li key={index}>Taste: {tag.name}</li>;
+            })}
+          </ul>
+          <p>About: {restaurantChoice.description}</p>
+          <div className="address">
+            <h6>Address: {restaurantChoice.address}</h6>
+            <h6>City: {restaurantChoice.city.name}</h6>
 
-      <h3>Name: {name}</h3>
-      <h5>Tags: {tags}</h5>
-      <p>About: {description}</p>
-      <div className="address">
-        <h6>Address: {address}</h6>
-        <h6>City: {city}</h6>
-      </div>
+            <img  alt='restaurantDetails' src={restaurantChoice.img[1]} />
+          </div>
+        </>
+      ) : null}
     </div>
   );
 };
